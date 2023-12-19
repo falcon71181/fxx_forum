@@ -38,7 +38,6 @@ const items = [
 ];
 
 const NavBar = () => {
-
   const pathname = usePathname();
 
   return (
@@ -55,51 +54,96 @@ const NavBar = () => {
         </Dropdown>
         <div className="text-xl text-white font-semibold">FXX</div>
       </menu>
-      
+
       {/* make navLinks Hide at 800px */}
       <ul className="h-full hidden navHide:flex">
         <li>
           <Link
             href="/"
-            className={`${pathname == "/" ? "text-white bg-slate-900" : "text-slate-300 hover:bg-slate-900 hover:text-white" } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+            className={`${
+              pathname == "/"
+                ? "text-white bg-slate-900"
+                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
-            <FaHome style={{ fontSize: `${iconSize}px`, color: `${pathname === "/" ? "#ff9900" : "#cbd5e1"}` }} />
+            <FaHome
+              style={{
+                fontSize: `${iconSize}px`,
+                color: `${pathname === "/" ? "#ff9900" : "#cbd5e1"}`,
+              }}
+            />
             Home
           </Link>
         </li>
         <li>
           <Link
             href="/upgrade"
-            className={`${pathname == "/upgrade" ? "text-white bg-slate-900" : "text-slate-300 hover:bg-slate-900 hover:text-white" } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+            className={`${
+              pathname == "/upgrade"
+                ? "text-white bg-slate-900"
+                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
-            <GiJusticeStar style={{ fontSize: `${iconSize}px`, color: `${pathname === "/upgrade" ? "yellow" : "#cbd5e1"}` }} />
+            <GiJusticeStar
+              style={{
+                fontSize: `${iconSize}px`,
+                color: `${pathname === "/upgrade" ? "yellow" : "#cbd5e1"}`,
+              }}
+            />
             Upgrade
           </Link>
         </li>
         <li>
           <Link
             href="/help"
-            className={`${pathname == "/help" ? "text-white bg-slate-900" : "text-slate-300 hover:bg-slate-900 hover:text-white" } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+            className={`${
+              pathname == "/help"
+                ? "text-white bg-slate-900"
+                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
-            <FaFlag style={{ fontSize: `${iconSize}px`, color: `${pathname === "/help" ? "#73ff00" : "#cbd5e1"}` }} />
+            <FaFlag
+              style={{
+                fontSize: `${iconSize}px`,
+                color: `${pathname === "/help" ? "#73ff00" : "#cbd5e1"}`,
+              }}
+            />
             Help
           </Link>
         </li>
         <li>
           <Link
             href="/telegram"
-            className={`${pathname == "/telegram" ? "text-white bg-slate-900" : "text-slate-300 hover:bg-slate-900 hover:text-white" } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+            className={`${
+              pathname == "/telegram"
+                ? "text-white bg-slate-900"
+                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
-            <FaTelegramPlane style={{ fontSize: `${iconSize}px`, color: `${pathname === "/telegram" ? "#66c2ff" : "#cbd5e1"}` }} />
+            <FaTelegramPlane
+              style={{
+                fontSize: `${iconSize}px`,
+                color: `${pathname === "/telegram" ? "#66c2ff" : "#cbd5e1"}`,
+              }}
+            />
             Telegram
           </Link>
         </li>
         <li>
           <Link
             href="/discord"
-            className={`${pathname == "/discord" ? "text-white bg-slate-900" : "text-slate-300 hover:bg-slate-900 hover:text-white" } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+            className={`${
+              pathname == "/discord"
+                ? "text-white bg-slate-900"
+                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
-            <FaDiscord style={{ fontSize: `${iconSize}px`, color: `${pathname === "/discord" ? "#bc8cff" : "#cbd5e1"}` }} />
+            <FaDiscord
+              style={{
+                fontSize: `${iconSize}px`,
+                color: `${pathname === "/discord" ? "#bc8cff" : "#cbd5e1"}`,
+              }}
+            />
             Discord
           </Link>
         </li>
