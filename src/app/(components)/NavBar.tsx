@@ -1,5 +1,7 @@
 "use client";
+import ProfileSection from "./profileSection";
 import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import {
   FaHome,
@@ -39,6 +41,7 @@ const items = [
 
 const NavBar = () => {
   const pathname = usePathname();
+  const [isValidSession, setIsValidSession] = useState(false);
 
   return (
     // Padding px-2 at 1024px
@@ -148,22 +151,26 @@ const NavBar = () => {
           </Link>
         </li>
       </ul>
-      <section className="flex h-full">
-        <Link
-          href="/"
-          className="h-full flex items-center justify-center rounded-lg gap-2 px-2 laptop:px-3 text-sm hover:text-white"
-        >
-          <FaSignInAlt style={{ fontSize: `${iconSize}px` }} />
-          LogIn
-        </Link>
-        <Link
-          href="/"
-          className="h-full flex items-center justify-center rounded-lg gap-2 px-2 laptop:px-3 text-sm hover:text-white"
-        >
-          <IoPersonAddSharp style={{ fontSize: `${iconSize}px` }} />
-          Register
-        </Link>
-      </section>
+      {isValidSession ? (
+        <ProfileSection />
+      ) : (
+        <section className="flex h-full">
+          <Link
+            href="/"
+            className="h-full flex items-center justify-center rounded-lg gap-2 px-2 laptop:px-3 text-sm hover:text-white"
+          >
+            <FaSignInAlt style={{ fontSize: `${iconSize}px` }} />
+            LogIn
+          </Link>
+          <Link
+            href="/"
+            className="h-full flex items-center justify-center rounded-lg gap-2 px-2 laptop:px-3 text-sm hover:text-white"
+          >
+            <IoPersonAddSharp style={{ fontSize: `${iconSize}px` }} />
+            Register
+          </Link>
+        </section>
+      )}
     </nav>
   );
 };
