@@ -156,14 +156,14 @@ const NavBar = () => {
       ) : (
         <section className="flex h-full">
           <Link
-            href="/"
+            href="/login"
             className="h-full flex items-center justify-center rounded-lg gap-2 px-2 laptop:px-3 text-sm hover:text-white"
           >
             <FaSignInAlt style={{ fontSize: `${iconSize}px` }} />
             LogIn
           </Link>
           <Link
-            href="/"
+            href="/register"
             className="h-full flex items-center justify-center rounded-lg gap-2 px-2 laptop:px-3 text-sm hover:text-white"
           >
             <IoPersonAddSharp style={{ fontSize: `${iconSize}px` }} />
