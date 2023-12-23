@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { FloatButton } from "antd";
 import { FiBriefcase, FiSlack } from "react-icons/fi";
 import { PiStudentFill } from "react-icons/pi";
-import { FaRegFaceLaughSquint } from "react-icons/fa6";
-import RenderFromTemplateContext from "next/dist/client/components/render-from-template-context";
+import { FaRegFaceLaughSquint, FaPlus } from "react-icons/fa6";
 
 export default function Home() {
   const [selectedPage, setSelectedPage] = useState("GENERAL");
@@ -38,7 +38,7 @@ export default function Home() {
                 type="button"
                 onClick={() => handlePageChange("GENERAL")}
                 className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "GENERAL" ? "active" : ""
+                  selectedPage === "GENERAL" ? "bg-slate-900" : ""
                 }`}
               >
                 <span>
@@ -52,7 +52,7 @@ export default function Home() {
                 type="button"
                 onClick={() => handlePageChange("MEMES")}
                 className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "MEMES" ? "active" : ""
+                  selectedPage === "MEMES" ? "bg-slate-900" : ""
                 }`}
               >
                 <span>
@@ -66,7 +66,7 @@ export default function Home() {
                 type="button"
                 onClick={() => handlePageChange("TECH")}
                 className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "TECH" ? "active" : ""
+                  selectedPage === "TECH" ? "bg-slate-900" : ""
                 }`}
               >
                 <span>
@@ -80,7 +80,7 @@ export default function Home() {
                 type="button"
                 onClick={() => handlePageChange("ISSUE")}
                 className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "ISSUE" ? "active" : ""
+                  selectedPage === "ISSUE" ? "bg-slate-900" : ""
                 }`}
               >
                 <span>
@@ -93,7 +93,15 @@ export default function Home() {
         </nav>
 
         {/* Render content based on the selected category */}
-        <div className="border-2 border-red-500 w-full">{renderContent()}</div>
+        <div className="border-2 border-red-500 w-full h-[90%] relative z-0">
+          {renderContent()}
+          <FloatButton
+            shape="square"
+            type="primary"
+            style={{ position: "absolute", right: 50, bottom: 40 }}
+            icon={<FaPlus />}
+          />
+        </div>
       </div>
     </main>
   );
