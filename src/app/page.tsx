@@ -1,12 +1,31 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { FloatButton } from "antd";
+import {
+  FloatButton,
+  Button,
+  Col,
+  Drawer,
+  Form,
+  Input,
+  Row,
+  Space,
+} from "antd";
 import { FiBriefcase, FiSlack } from "react-icons/fi";
 import { PiStudentFill } from "react-icons/pi";
 import { FaRegFaceLaughSquint, FaPlus } from "react-icons/fa6";
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   const [selectedPage, setSelectedPage] = useState("GENERAL");
 
   // Function to handle the page content change
@@ -93,15 +112,72 @@ export default function Home() {
         </nav>
 
         {/* Render content based on the selected category */}
-        <div className="border-2 border-red-500 w-full h-[90%] relative z-0">
+        <div className="border-2 border-red-500 w-full h-[80%] relative z-0">
           {renderContent()}
           <FloatButton
             shape="square"
             type="primary"
             style={{ position: "absolute", right: 50, bottom: 40 }}
             icon={<FaPlus />}
+            onClick={showDrawer}
           />
         </div>
+        <Drawer
+          title="Create a new Board"
+          width={720}
+          onClose={onClose}
+          open={open}
+          styles={{
+            body: {
+              paddingBottom: 50,
+            },
+          }}
+          extra={
+            <Space>
+              <Button onClick={onClose}>Cancel</Button>
+              <Button
+                onClick={onClose}
+                type="link"
+                className="text-base border-[1px] border-blue-500 flex justify-center items-center"
+              >
+                Submit
+              </Button>
+            </Space>
+          }
+        >
+          <Form layout="vertical">
+            <Row gutter={16}>
+              <Col span={24}>
+                <Form.Item
+                  name="title"
+                  label="Title"
+                  rules={[{ required: true, message: "Please enter Title" }]}
+                >
+                  <Input placeholder="Please enter Title" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={16}>
+              <Col span={24}>
+                <Form.Item
+                  name="description"
+                  label="Description"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter description",
+                    },
+                  ]}
+                >
+                  <Input.TextArea
+                    rows={15}
+                    placeholder="Please enter description"
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Form>
+        </Drawer>
       </div>
     </main>
   );
