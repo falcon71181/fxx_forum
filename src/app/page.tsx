@@ -1,5 +1,7 @@
 "use client";
-import Image from "next/image";
+import { FiBriefcase, FiSlack } from "react-icons/fi";
+import { PiStudentFill } from "react-icons/pi";
+import { FaRegFaceLaughSquint, FaPlus } from "react-icons/fa6";
 import { useState } from "react";
 import {
   FloatButton,
@@ -11,12 +13,15 @@ import {
   Row,
   Space,
 } from "antd";
-import { FiBriefcase, FiSlack } from "react-icons/fi";
-import { PiStudentFill } from "react-icons/pi";
-import { FaRegFaceLaughSquint, FaPlus } from "react-icons/fa6";
 
+interface addBoardType {
+  title: string;
+  description: string;
+}
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const [selectedPage, setSelectedPage] = useState("GENERAL");
+  const [form] = Form.useForm();
 
   const showDrawer = () => {
     setOpen(true);
@@ -26,13 +31,34 @@ export default function Home() {
     setOpen(false);
   };
 
-  const [selectedPage, setSelectedPage] = useState("GENERAL");
-
   // Function to handle the page content change
   const handlePageChange = (pageName: string) => {
     setSelectedPage(pageName);
   };
 
+  // Function to handle form submission
+  const handleSubmit = async (values: addBoardType) => {
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append("title", values.title);
+    formData.append("description", values.description);
+
+    // Perform the POST request to your API with FormData
+    try {
+      const response = await fetch("/api/board", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log("Board created successfully");
+      } else {
+        console.error("Error creating board:", response.statusText);
+      }
+    } catch (error: any) {
+      console.error("Error:", error.message);
+    }
+  };
   // Function to render content based on the selected category
   const renderContent = () => {
     switch (selectedPage) {
@@ -49,7 +75,7 @@ export default function Home() {
 
   return (
     <main className="pt-20 flex min-h-screen min-w-screen justify-center text-6xl text-slate-300">
-      <div className="w-4/5 h-screen shadow-2xl shadow-gray-600">
+      <div className="w-4/5 h-screen shadow-2xl shadow-cyan-300">
         <nav className="w-full h-10 bg-gray-800 rounded-t-xl">
           <ul className="h-full flex justify-evenly">
             <li>
@@ -135,8 +161,21 @@ export default function Home() {
           extra={
             <Space>
               <Button onClick={onClose}>Cancel</Button>
+              {/* Modify the Submit button to trigger the form submission */}
               <Button
-                onClick={onClose}
+                onClick={() => {
+                  // Call the antd form validate function
+                  form
+                    .validateFields()
+                    .then((values) => {
+                      form.resetFields();
+                      handleSubmit(values);
+                      onClose();
+                    })
+                    .catch((info) => {
+                      console.log("Validate Failed:", info);
+                    });
+                }}
                 type="link"
                 className="text-base border-[1px] border-blue-500 flex justify-center items-center"
               >
@@ -145,7 +184,7 @@ export default function Home() {
             </Space>
           }
         >
-          <Form layout="vertical">
+          <Form layout="vertical" onFinish={handleSubmit} form={form}>
             <Row gutter={16}>
               <Col span={24}>
                 <Form.Item
