@@ -3,12 +3,17 @@ import mongoose, { Model, Document } from "mongoose";
 const { Schema, model } = mongoose;
 
 type BoardType = {
+  category: number;
   title: string;
   description: string;
   date: Date;
 } & Document;
 
 const BoardSchema = new Schema<BoardType>({
+  category: {
+    type: Number,
+    required: true,
+  },
   title: {
     type: String,
     required: true,

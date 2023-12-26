@@ -2,7 +2,7 @@ import mongoose, { Model, Document } from "mongoose";
 
 const { Schema, model } = mongoose;
 
-export type UserType = {
+type UserType = {
   email: string;
   password: string;
   date: Date;
