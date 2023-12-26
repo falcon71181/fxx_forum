@@ -14,6 +14,20 @@ import {
   Space,
 } from "antd";
 
+const identify = (str: string) => {
+  if (str === "GENERAL") {
+    return 0;
+  } else if (str === "MEMES") {
+    return 1;
+  } else if (str === "TECH") {
+    return 2;
+  } else if (str === "ISSUE") {
+    return 3;
+  } else {
+    return -1;
+  }
+};
+
 interface addBoardType {
   title: string;
   description: string;
@@ -37,9 +51,11 @@ export default function Home() {
   };
 
   // Function to handle form submission
-  const handleSubmit = async (values: addBoardType) => {
+  const handleSubmit = async (values: addBoardType, identifier: string) => {
     // Create a FormData object
+    let typeIdentity = identify(identifier);
     const formData = new FormData();
+    formData.append("identifier", typeIdentity);
     formData.append("title", values.title);
     formData.append("description", values.description);
 
@@ -169,7 +185,7 @@ export default function Home() {
                     .validateFields()
                     .then((values) => {
                       form.resetFields();
-                      handleSubmit(values);
+                      handleSubmit(values, selectedPage);
                       onClose();
                     })
                     .catch((info) => {
