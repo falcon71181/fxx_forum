@@ -13,6 +13,7 @@ import {
   Row,
   Space,
 } from "antd";
+import { GeneralCateg, MemeCateg, TechCateg, IssueCateg } from "./(components)/boardCateg";
 
 const identify = (str: string) => {
   if (str === "GENERAL") {
@@ -79,13 +80,13 @@ export default function Home() {
   const renderContent = () => {
     switch (selectedPage) {
       case "MEMES":
-        return <div>Content for Memes</div>;
+        return <MemeCateg />;
       case "TECH":
-        return <div>Content for Tech</div>;
+        return <TechCateg />;
       case "ISSUE":
-        return <div>Content for Issue</div>;
+        return <IssueCateg />;
       case "GENERAL":
-        return <div>GENERAL</div>;
+        return <GeneralCateg />;
     }
   };
 
@@ -98,9 +99,8 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => handlePageChange("GENERAL")}
-                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "GENERAL" ? "bg-slate-900" : ""
-                }`}
+                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${selectedPage === "GENERAL" ? "bg-slate-900" : ""
+                  }`}
               >
                 <span>
                   <FiSlack />
@@ -112,9 +112,8 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => handlePageChange("MEMES")}
-                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "MEMES" ? "bg-slate-900" : ""
-                }`}
+                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${selectedPage === "MEMES" ? "bg-slate-900" : ""
+                  }`}
               >
                 <span>
                   <FaRegFaceLaughSquint />
@@ -126,9 +125,8 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => handlePageChange("TECH")}
-                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "TECH" ? "bg-slate-900" : ""
-                }`}
+                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${selectedPage === "TECH" ? "bg-slate-900" : ""
+                  }`}
               >
                 <span>
                   <PiStudentFill />
@@ -140,9 +138,8 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => handlePageChange("ISSUE")}
-                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "ISSUE" ? "bg-slate-900" : ""
-                }`}
+                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${selectedPage === "ISSUE" ? "bg-slate-900" : ""
+                  }`}
               >
                 <span>
                   <FiBriefcase />
