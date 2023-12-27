@@ -3,6 +3,7 @@ import { FiBriefcase, FiSlack } from "react-icons/fi";
 import { PiStudentFill } from "react-icons/pi";
 import { FaRegFaceLaughSquint, FaPlus } from "react-icons/fa6";
 import { useState, useEffect } from "react";
+import BoardLoading from "./(components)/loading";
 import {
   FloatButton,
   Button,
@@ -95,10 +96,14 @@ export default function Home() {
   //
 
   const [data, setData] = useState<BoardItem[]>([]);
+  const [boardLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Set loading to true when starting the fetch
+        setLoading(true);
+
         const result = await boardList();
         // @ts-ignore
         const dataArray = Object.values(result);
@@ -106,6 +111,9 @@ export default function Home() {
         setData(dataArray);
       } catch (error: any) {
         console.error("Error fetching board list:", error.message);
+      } finally {
+        // Set loading to false when fetch is completed (either success or error)
+        setLoading(false);
       }
     };
 
@@ -176,14 +184,20 @@ export default function Home() {
         <div className="border-2 border-red-500 w-full min-h-[80%] relative z-0">
           {/* {renderContent()} */}
           <div className='w-full'>
-            {data.map((item) => (
-              <BoardCard
-                key={item._id}
-                _id={item._id}
-                title={item.title}
-                date={new Date(item.date)}
-              />
-            ))}
+            {boardLoading ? (
+              <section className="w-full h-full flex justify-center items-center">
+                <BoardLoading />
+              </section>
+            ) : (
+              data.map((item) => (
+                <BoardCard
+                  key={item._id}
+                  _id={item._id}
+                  title={item.title}
+                  date={new Date(item.date)}
+                />
+              ))
+            )}
           </div>
           <FloatButton
             shape="square"
