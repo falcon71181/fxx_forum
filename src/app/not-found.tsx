@@ -265,7 +265,7 @@ const NotFound = () => {
               </svg>
             </div>
             <p className="text-sm md:text-base text-yellow-300 p-2 mb-4">
-              The stuff you were looking for doesn't exist
+              The stuff you were looking for doesn &apos;t exist
             </p>
             <a
               href="/"
