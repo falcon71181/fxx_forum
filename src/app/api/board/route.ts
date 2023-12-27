@@ -12,6 +12,7 @@ export async function POST(request: Request) {
     // TODO - verify user using token validation
 
     const boardData = await request.formData();
+    const category = boardData.get("identifier");
     const title = boardData.get("title");
     const description = boardData.get("description");
 
@@ -27,6 +28,7 @@ export async function POST(request: Request) {
     }
 
     const newBoardData = {
+      category,
       title,
       description,
     };
@@ -54,7 +56,6 @@ export async function POST(request: Request) {
     disconnectDB();
   }
 }
-
 export async function GET(request: Request) {
   let boardList: any = {};
 
