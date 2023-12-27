@@ -12,7 +12,7 @@ export type BoardData = {
 export const boardList = async () => {
   try {
     // make it using type window
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}api/board`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/board`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
