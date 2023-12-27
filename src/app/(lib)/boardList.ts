@@ -12,7 +12,7 @@ export type BoardData = {
 export const boardList = async () => {
   try {
     // make it using type window
-    const res = await fetch("http://localhost:3000/api/board", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}api/board`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,37 +31,37 @@ export const boardList = async () => {
     throw error;
   }
 };
-
-const filterCategory = (data: Record<string, any>): BoardData => {
-  const organizedData: BoardData = {
-    general: [],
-    memes: [],
-    tech: [],
-    issue: [],
-  };
-
-  for (const key in data) {
-    const item = data[key];
-    const { category, title, description, date } = item;
-
-    switch (category) {
-      case 0:
-        organizedData.general.push({ title, description, date });
-        break;
-      case 1:
-        organizedData.memes.push({ title, description, date });
-        break;
-      case 2:
-        organizedData.tech.push({ title, description, date });
-        break;
-      case 3:
-        organizedData.issue.push({ title, description, date });
-        break;
-      default:
-        organizedData.general.push({ title, description, date });
-        break;
-    }
-  }
-
-  return organizedData;
-}
+//
+// const filterCategory = (data: Record<string, any>): BoardData => {
+//   const organizedData: BoardData = {
+//     general: [],
+//     memes: [],
+//     tech: [],
+//     issue: [],
+//   };
+//
+//   for (const key in data) {
+//     const item = data[key];
+//     const { category, title, description, date } = item;
+//
+//     switch (category) {
+//       case 0:
+//         organizedData.general.push({ title, description, date });
+//         break;
+//       case 1:
+//         organizedData.memes.push({ title, description, date });
+//         break;
+//       case 2:
+//         organizedData.tech.push({ title, description, date });
+//         break;
+//       case 3:
+//         organizedData.issue.push({ title, description, date });
+//         break;
+//       default:
+//         organizedData.general.push({ title, description, date });
+//         break;
+//     }
+//   }
+//
+//   return organizedData;
+// }
