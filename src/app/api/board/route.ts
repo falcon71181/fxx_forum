@@ -1,5 +1,4 @@
 import Board from "@/app/(models)/Board";
-import mongoose from "mongoose";
 import { connectDB, disconnectDB } from "@/app/(lib)/mongoose";
 
 export async function POST(request: Request) {
