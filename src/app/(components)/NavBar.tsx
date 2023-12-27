@@ -2,6 +2,7 @@
 import ProfileSection from "./profileSection";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { isTokenValid } from "../(lib)/isTokenValid";
 import { usePathname } from "next/navigation";
 import {
   FaHome,
@@ -43,9 +44,29 @@ const NavBar = () => {
   const pathname = usePathname();
   const [isValidSession, setIsValidSession] = useState(false);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const isTokenExist = localStorage.getItem("token");
+      if (isTokenExist == null) {
+        return;
+      }
+
+      try {
+        console.log("working");
+        const domain =
+          typeof window !== "undefined" ? window.location.hostname : "";
+        const data = await isTokenValid();
+        setIsValidSession(data.valid);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     // Padding px-2 at 1024px
-    <nav className="fixed w-full h-10 flex justify-between items-center px-2 laptop:px-20 bg-gray-800 text-slate-300 font-heading">
+    <nav className="fixed w-full h-10 flex justify-between items-center px-2 laptop:px-20 bg-gray-800 text-slate-300 font-heading z-50">
       {/* Learn to Style Dropdown Menu */}
       <menu className="navHide:hidden h-full flex justify-center items-center gap-2">
         <Dropdown menu={{ items }} trigger={["click"]}>

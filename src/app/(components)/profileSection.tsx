@@ -5,6 +5,12 @@ import type { MenuProps } from "antd";
 import { Avatar } from "antd";
 import { IoMdLogOut } from "react-icons/io";
 import { RxAvatar } from "react-icons/rx";
+import locale from "antd/es/date-picker/locale/en_US";
+
+const logOut = () => {
+  localStorage.clear();
+  window.location.reload();
+};
 
 const items: MenuProps["items"] = [
   {
@@ -12,7 +18,7 @@ const items: MenuProps["items"] = [
     danger: true,
     label: "Log Out",
     icon: <IoMdLogOut />,
-    // onClick: alert("working"),
+    onClick: logOut,
   },
 ];
 
