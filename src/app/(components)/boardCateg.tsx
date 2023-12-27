@@ -32,6 +32,7 @@ const BoardCategory = () => {
     <div>
       {boards.map((boardData) => (
         <BoardCard
+          _id={boardData._id}
           key={boardData._id}
           title={boardData.title}
           date={new Date(boardData.date)}
