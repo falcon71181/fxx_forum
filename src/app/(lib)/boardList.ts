@@ -1,4 +1,5 @@
 export type BoardItem = {
+  _id: string;
   title: string;
   description: string;
   date: Date;
@@ -22,7 +23,8 @@ export const boardList = async () => {
       throw new Error(`Error: ${res.statusText}`);
     }
 
-    const result = filterCategory(res.json());
+    // const result = filterCategory(res.json());
+    const result = res.json();
     return result;
   } catch (error: any) {
     console.error("Error fetching board list:", error.message);

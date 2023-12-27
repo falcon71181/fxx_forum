@@ -2,7 +2,7 @@
 import { FiBriefcase, FiSlack } from "react-icons/fi";
 import { PiStudentFill } from "react-icons/pi";
 import { FaRegFaceLaughSquint, FaPlus } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   FloatButton,
   Button,
@@ -13,7 +13,10 @@ import {
   Row,
   Space,
 } from "antd";
-import { GeneralCateg, MemeCateg, TechCateg, IssueCateg } from "./(components)/boardCateg";
+// import { GeneralCateg, MemeCateg, TechCateg, IssueCateg } from "./(components)/boardCateg";
+import BoardCategory from "./(components)/boardCateg";
+import { boardList, BoardItem } from "./(lib)/boardList";
+import BoardCard from "./(components)/board";
 
 const identify = (str: string) => {
   if (str === "GENERAL") {
@@ -77,22 +80,39 @@ export default function Home() {
     }
   };
   // Function to render content based on the selected category
-  const renderContent = () => {
-    switch (selectedPage) {
-      case "MEMES":
-        return <MemeCateg />;
-      case "TECH":
-        return <TechCateg />;
-      case "ISSUE":
-        return <IssueCateg />;
-      case "GENERAL":
-        return <GeneralCateg />;
-    }
-  };
+  // const renderContent = () => {
+  //   switch (selectedPage) {
+  //     case "MEMES":
+  //       return <MemeCateg />;
+  //     case "TECH":
+  //       return <TechCateg />;
+  //     case "ISSUE":
+  //       return <IssueCateg />;
+  //     case "GENERAL":
+  //       return <GeneralCateg />;
+  //   }
+  // };
+  //
+
+  const [data, setData] = useState<BoardItem[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await boardList();
+        const dataArray = Object.values(result);
+        setData(dataArray);
+      } catch (error: any) {
+        console.error("Error fetching board list:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <main className="pt-20 flex min-h-screen min-w-screen justify-center text-6xl text-slate-300">
-      <div className="w-4/5 h-screen shadow-2xl shadow-cyan-300">
+      <div className="w-4/5 min-h-screen shadow-2xl shadow-cyan-300">
         <nav className="w-full h-10 bg-gray-800 rounded-t-xl">
           <ul className="h-full flex justify-evenly">
             <li>
@@ -105,10 +125,10 @@ export default function Home() {
                 <span>
                   <FiSlack />
                 </span>
-                <span>GENERAL</span>
+                <span>POST - BOARD</span>
               </button>
             </li>
-            <li>
+            {/* <li>
               <button
                 type="button"
                 onClick={() => handlePageChange("MEMES")}
@@ -146,13 +166,23 @@ export default function Home() {
                 </span>
                 <span>ISSUE</span>
               </button>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
         {/* Render content based on the selected category */}
-        <div className="border-2 border-red-500 w-full h-[80%] relative z-0">
-          {renderContent()}
+        <div className="border-2 border-red-500 w-full min-h-[80%] relative z-0">
+          {/* {renderContent()} */}
+          <div className='w-full'>
+            {data.map((item) => (
+              <BoardCard
+                key={item._id}
+                _id={item._id}
+                title={item.title}
+                date={new Date(item.date)}
+              />
+            ))}
+          </div>
           <FloatButton
             shape="square"
             type="primary"
