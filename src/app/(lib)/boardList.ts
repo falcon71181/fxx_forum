@@ -1,19 +1,17 @@
-type BoardItem = {
+export type BoardItem = {
   title: string;
   description: string;
   date: Date;
 };
 
-type OrganizedData = {
-  general: BoardItem[];
-  memes: BoardItem[];
-  tech: BoardItem[];
-  issue: BoardItem[];
+export type BoardData = {
+  [key: string]: BoardItem[];
 };
 
 export const boardList = async () => {
   try {
-    const res = await fetch("/api/board", {
+    // make it using type window
+    const res = await fetch("http://localhost:3000/api/board", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -21,11 +19,10 @@ export const boardList = async () => {
     });
 
     if (!res.ok) {
-      // If the response status is not ok, throw an error
       throw new Error(`Error: ${res.statusText}`);
     }
 
-    const result = filterCategory(await res.json());
+    const result = filterCategory(res.json());
     return result;
   } catch (error: any) {
     console.error("Error fetching board list:", error.message);
@@ -33,8 +30,8 @@ export const boardList = async () => {
   }
 };
 
-const filterCategory = (data: Record<string, any>): OrganizedData => {
-  const organizedData: OrganizedData = {
+const filterCategory = (data: Record<string, any>): BoardData => {
+  const organizedData: BoardData = {
     general: [],
     memes: [],
     tech: [],
@@ -65,4 +62,4 @@ const filterCategory = (data: Record<string, any>): OrganizedData => {
   }
 
   return organizedData;
-};
+}
