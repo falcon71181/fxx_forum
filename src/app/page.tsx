@@ -15,7 +15,7 @@ import {
 } from "antd";
 // import { GeneralCateg, MemeCateg, TechCateg, IssueCateg } from "./(components)/boardCateg";
 import BoardCategory from "./(components)/boardCateg";
-import { boardList, BoardItem } from "./(lib)/boardList";
+import { boardList, BoardItem, BoardData } from "./(lib)/boardList";
 import BoardCard from "./(components)/board";
 
 const identify = (str: string) => {
@@ -57,7 +57,7 @@ export default function Home() {
   // Function to handle form submission
   const handleSubmit = async (values: addBoardType, identifier: string) => {
     // Create a FormData object
-    let typeIdentity = identify(identifier);
+    const typeIdentity = identify(identifier).toString();
     const formData = new FormData();
     formData.append("identifier", typeIdentity);
     formData.append("title", values.title);
@@ -100,7 +100,9 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const result = await boardList();
+        // @ts-ignore
         const dataArray = Object.values(result);
+        // @ts-ignore
         setData(dataArray);
       } catch (error: any) {
         console.error("Error fetching board list:", error.message);
@@ -227,6 +229,7 @@ export default function Home() {
             </Space>
           }
         >
+          {/* @ts-ignore */}
           <Form layout="vertical" onFinish={handleSubmit} form={form}>
             <Row gutter={16}>
               <Col span={24}>

@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const authorization = request.headers.get("authorization");
   const JWT_Secret = process.env.JWT_SECRET as string;
 
-  type Payload = JwtPayload & { email: string };
+  // type Payload = JwtPayload & { email: string };
 
   if (!authorization) {
     return new Response("No JWT Token ", {
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
   try {
     await connectDB();
 
-    const payload = jwt.verify(token, JWT_Secret) as Payload;
+    const payload = jwt.verify(token, JWT_Secret);
     const user = await User.findOne({ email: payload.email });
 
     if (!user) {
