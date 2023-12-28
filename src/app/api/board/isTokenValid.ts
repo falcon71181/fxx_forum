@@ -1,6 +1,4 @@
-export const isTokenValid = async () => {
-  const token = localStorage.getItem("token");
-
+export const isTokenValid = async (token: string) => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/validate`, {
       method: "POST",
@@ -9,10 +7,11 @@ export const isTokenValid = async () => {
       },
     });
 
-    const data = response.ok ? { valid: true } : { valid: false };
+    // @ts-ignore
+    const data = response.ok ? { email: response["payload"]["email"] } : { email: null };
     return data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
-    return { valid: false };
+    return { email: null };
   }
-};
+}
