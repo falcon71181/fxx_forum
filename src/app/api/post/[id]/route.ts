@@ -13,13 +13,14 @@ export async function GET(request: Request) {
 
     const boardPost = await Board.find({ _id: boardID });
     post = { ...post, ...boardPost };
-    console.log(post)
+
     return new Response(JSON.stringify(post), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
       },
     })
+
   } catch (error) {
     console.log(error);
 
