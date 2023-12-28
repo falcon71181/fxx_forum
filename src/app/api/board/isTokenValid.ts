@@ -8,10 +8,10 @@ export const isTokenValid = async (token: string) => {
     });
 
     // @ts-ignore
-    const data = response.ok ? { email: response["payload"]["email"] } : { email: null };
+    const data = response.ok ? { valid: true, email: response["payload"]["email"] } : { valid: false };
     return data;
   } catch (error: any) {
     console.error(error);
-    return { email: null };
+    return { valid: false };
   }
 }

@@ -3,13 +3,11 @@ import { connectDB, disconnectDB } from "@/app/(lib)/mongoose";
 import { isTokenValid } from "./isTokenValid";
 
 export async function POST(request: Request) {
-  let newBoard;
-
   try {
     // Wait for DB to connect
     await connectDB();
 
-  // Token Verification
+    // Token Verification
     const authorization = request.headers.get("authorization");
 
     if (!authorization) {
@@ -21,28 +19,30 @@ export async function POST(request: Request) {
       });
     }
 
-  // Split the Authorization header to get the token part
-  const [bearer, token] = authorization.split(" ");
+    // Split the Authorization header to get the token part
+    const [bearer, token] = authorization.split(" ");
 
-  // Check if the header is in the expected "Bearer <token>" format
-  if (bearer !== "Bearer" || !token) {
-    return new Response("Invalid Authorization header format", {
-      status: 401,
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    });
-  }
-  const email = await isTokenValid(token);
-  if(email == null){
-    return new Response("JWT Token Invalid", {
-      status: 401,
-      headers: {
-        "Content-Type": "text/plain",
-      },
-    });
-  }
-  console.log(email);
+    // Check if the header is in the expected "Bearer <token>" format
+    if (bearer !== "Bearer" || !token) {
+      return new Response("Invalid Authorization header format", {
+        status: 401,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      });
+    }
+
+    const checkToken = await isTokenValid(token);
+    if (!checkToken.valid) {
+      return new Response("JWT Token Invalid", {
+        status: 401,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      });
+    }
+
+    const email = checkToken.email;
 
     const boardData = await request.formData();
     const category = boardData.get("identifier");
@@ -66,8 +66,8 @@ export async function POST(request: Request) {
       description,
     };
 
-    // Creating a new Board
-    newBoard = await Board.create(newBoardData);
+    // Creating a new Board only if token validation is successful
+    const newBoard = await Board.create(newBoardData);
 
     return new Response("New Board Added", {
       status: 200,
@@ -89,6 +89,7 @@ export async function POST(request: Request) {
     disconnectDB();
   }
 }
+
 export async function GET(request: Request) {
   let boardList: any = {};
 
