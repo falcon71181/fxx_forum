@@ -37,7 +37,6 @@ export async function POST(request: Request) {
     const user = await User.findOne({ email: payload.email });
 
     if (!user) {
-      const error = "User doesn't exist";
       return new Response("User doesn't exist", {
         status: 404,
         headers: {

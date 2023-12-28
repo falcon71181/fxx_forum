@@ -1,5 +1,6 @@
 import Board from "@/app/(models)/Board";
 import { connectDB, disconnectDB } from "@/app/(lib)/mongoose";
+import { isTokenValid } from "./isTokenValid";
 
 export async function POST(request: Request) {
   let newBoard;
@@ -8,7 +9,40 @@ export async function POST(request: Request) {
     // Wait for DB to connect
     await connectDB();
 
-    // TODO - verify user using token validation
+  // Token Verification
+    const authorization = request.headers.get("authorization");
+
+    if (!authorization) {
+      return new Response("No JWT Token ", {
+        status: 401,
+        headers: {
+          "Content-Type": "text/plain",
+        },
+      });
+    }
+
+  // Split the Authorization header to get the token part
+  const [bearer, token] = authorization.split(" ");
+
+  // Check if the header is in the expected "Bearer <token>" format
+  if (bearer !== "Bearer" || !token) {
+    return new Response("Invalid Authorization header format", {
+      status: 401,
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+  const email = await isTokenValid(token);
+  if(email == null){
+    return new Response("JWT Token Invalid", {
+      status: 401,
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+  console.log(email);
 
     const boardData = await request.formData();
     const category = boardData.get("identifier");

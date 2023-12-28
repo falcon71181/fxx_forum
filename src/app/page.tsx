@@ -64,11 +64,15 @@ export default function Home() {
     formData.append("title", values.title);
     formData.append("description", values.description);
 
+    const token = localStorage.get("authorization") || null;
     // Perform the POST request to your API with FormData
     try {
       const response = await fetch("/api/board", {
         method: "POST",
         body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (response.ok) {
@@ -181,7 +185,7 @@ export default function Home() {
         </nav>
 
         {/* Render content based on the selected category */}
-        <div className="border-2 border-red-500 w-full min-h-[80%] relative z-0">
+        <div className="border-2 border-red-500 w-full min-h-[80%] z-0">
           {/* {renderContent()} */}
           <div className='w-full'>
             {boardLoading ? (
@@ -202,7 +206,7 @@ export default function Home() {
           <FloatButton
             shape="square"
             type="primary"
-            style={{ position: "absolute", right: 50, bottom: 40 }}
+            style={{ position: "fixed", right: 50, bottom: 50 }}
             icon={<FaPlus />}
             onClick={showDrawer}
           />
