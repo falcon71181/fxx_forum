@@ -3,6 +3,7 @@ import User from "@/app/(models)/User";
 import { connectDB, disconnectDB } from "@/app/(lib)/mongoose";
 
 export async function POST(request: Request) {
+  await connectDB();
   const authorization = request.headers.get("authorization");
   const JWT_Secret = process.env.JWT_SECRET as string;
 
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    await connectDB();
+    // await connectDB();
 
     const payload = jwt.verify(token, JWT_Secret);
     const user = await User.findOne({ email: payload.email });

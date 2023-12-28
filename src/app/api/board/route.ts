@@ -3,46 +3,44 @@ import { connectDB, disconnectDB } from "@/app/(lib)/mongoose";
 import { isTokenValid } from "./isTokenValid";
 
 export async function POST(request: Request) {
+  // Token Verification
+  const authorization = request.headers.get("authorization");
+
+  if (!authorization) {
+    return new Response("No JWT Token ", {
+      status: 401,
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+
+  // Split the Authorization header to get the token part
+  const [bearer, token] = authorization.split(" ");
+
+  // Check if the header is in the expected "Bearer <token>" format
+  if (bearer !== "Bearer" || !token) {
+    return new Response("Invalid Authorization header format", {
+      status: 401,
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+
+  const checkToken = await isTokenValid(token);
+  if (!checkToken.valid) {
+    return new Response("JWT Token Invalid", {
+      status: 401,
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+
+  const email = checkToken.email;
   try {
-    // Wait for DB to connect
     await connectDB();
-
-    // Token Verification
-    const authorization = request.headers.get("authorization");
-
-    if (!authorization) {
-      return new Response("No JWT Token ", {
-        status: 401,
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      });
-    }
-
-    // Split the Authorization header to get the token part
-    const [bearer, token] = authorization.split(" ");
-
-    // Check if the header is in the expected "Bearer <token>" format
-    if (bearer !== "Bearer" || !token) {
-      return new Response("Invalid Authorization header format", {
-        status: 401,
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      });
-    }
-
-    const checkToken = await isTokenValid(token);
-    if (!checkToken.valid) {
-      return new Response("JWT Token Invalid", {
-        status: 401,
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      });
-    }
-
-    const email = checkToken.email;
 
     const boardData = await request.formData();
     const category = boardData.get("identifier");
