@@ -64,7 +64,7 @@ export default function Home() {
     formData.append("title", values.title);
     formData.append("description", values.description);
 
-    const token = localStorage.get("authorization") || null;
+    const token = localStorage.getItem("authorization") || null;
     // Perform the POST request to your API with FormData
     try {
       const response = await fetch("/api/board", {
