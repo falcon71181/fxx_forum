@@ -19,6 +19,7 @@ import BoardCategory from "./(components)/boardCateg";
 import { boardList, BoardItem, BoardData } from "./(lib)/boardList";
 import BoardCard from "./(components)/board";
 import { isTokenValid } from "./(lib)/isTokenValid";
+import { Button, message } from 'antd';
 
 const identify = (str: string) => {
   if (str === "GENERAL") {
@@ -44,6 +45,14 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const [selectedPage, setSelectedPage] = useState("GENERAL");
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const successSubmit = () => {
+    messageApi.open({
+      type: 'loading',
+      content: 'Creating New Post...',
+      duration: 3,
+    });
 
   const showDrawer = () => {
     setOpen(true);
@@ -60,6 +69,7 @@ export default function Home() {
 
   // Function to handle form submission
   const handleSubmit = async (values: addBoardType, identifier: string) => {
+    successSubmit();
     // Create a FormData object
     const typeIdentity = identify(identifier).toString();
     const formData = new FormData();
@@ -81,6 +91,7 @@ export default function Home() {
       if (response.ok) {
         console.log("Board created successfully");
         // Reload the page to render the new item
+        // TODO ; useRel to include new item without reloading the page
         window.location.reload();
       } else {
         console.error("Error creating board:", response.statusText);
