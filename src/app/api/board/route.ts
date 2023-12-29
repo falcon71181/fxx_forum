@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     });
   }
 
-  const email = checkToken.email;
+  const leader = checkToken.email;
   try {
     await connectDB();
 
@@ -60,6 +60,7 @@ export async function POST(request: Request) {
 
     const newBoardData = {
       category,
+      leader,
       title,
       description,
     };

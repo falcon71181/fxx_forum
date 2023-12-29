@@ -4,6 +4,7 @@ const { Schema, model } = mongoose;
 
 type BoardType = {
   category: number;
+  leader: string;
   title: string;
   description: string;
   date: Date;
@@ -12,6 +13,10 @@ type BoardType = {
 const BoardSchema = new Schema<BoardType>({
   category: {
     type: Number,
+    required: true,
+  },
+  leader: {
+    type: String,
     required: true,
   },
   title: {

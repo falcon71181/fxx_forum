@@ -1,5 +1,6 @@
 export type BoardItem = {
   _id: string;
+  leader: string;
   title: string;
   description: string;
   date: Date;
