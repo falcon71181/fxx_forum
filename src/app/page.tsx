@@ -133,8 +133,9 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => handlePageChange("GENERAL")}
-                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${selectedPage === "GENERAL" ? "bg-slate-900" : ""
-                  }`}
+                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
+                  selectedPage === "GENERAL" ? "bg-slate-900" : ""
+                }`}
               >
                 <span>
                   <FiSlack />
@@ -187,7 +188,7 @@ export default function Home() {
         {/* Render content based on the selected category */}
         <div className="border-2 border-red-500 w-full min-h-[80%] z-0">
           {/* {renderContent()} */}
-          <div className='w-full'>
+          <div className="w-full">
             {boardLoading ? (
               <section className="w-full h-full flex justify-center items-center">
                 <BoardLoading />
@@ -197,6 +198,7 @@ export default function Home() {
                 <BoardCard
                   key={item._id}
                   _id={item._id}
+                  leader={item.leader}
                   title={item.title}
                   date={new Date(item.date)}
                 />

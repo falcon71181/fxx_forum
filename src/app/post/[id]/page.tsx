@@ -1,8 +1,8 @@
 "use client";
-import React from 'react';
-import { PostData } from '@/app/(lib)/postData';
-import { useState, useEffect } from 'react';
-import { BoardItem, BoardData } from '@/app/(lib)/boardList';
+import React from "react";
+import { PostData } from "@/app/(lib)/postData";
+import { useState, useEffect } from "react";
+import { BoardItem, BoardData } from "@/app/(lib)/boardList";
 import { FaReply } from "react-icons/fa";
 
 interface PostProps {
@@ -36,20 +36,25 @@ const Post = ({ params }: PostProps) => {
 
     fetchData();
   }, [params.id]);
+  // @ts-ignore
+  const postOwner = data?.leader?.split("@")[0];
   return (
     <main className="pt-20 flex min-h-screen min-w-screen justify-center text-6xl text-slate-300">
       <div className="w-4/5 min-h-screen shadow-2xl shadow-cyan-300">
         <div className="w-full h-24 bg-gray-800 rounded-t-xl flex justify-between items-center p-5">
-          <div className='text-2xl font-heading'>
-            {/* @ts-ignore */}
-            {data?.title}
+          <div className="flex flex-col gap-2">
+            <div className="text-3xl font-heading font-extrabold">
+              {/* @ts-ignore */}
+              {data?.title}
+            </div>
+            <div className="text-lg">By : @{postOwner}</div>
           </div>
-          <div className='text-sm'>
+          <div className="text-sm">
             {/* @ts-ignore */}
             {data?.date?.toString()}
           </div>
         </div>
-        <section className='border-2 border-red-500 w-full min-h-20 p-3 flex text-base text-slate-300' style={{ whiteSpace: 'pre-wrap' }}>
+        <section className="border-2 border-red-500 w-full min-h-20 p-3 flex text-base text-slate-300 whitespace-pre-wrap hyphens-auto">
           {/* @ts-ignore */}
           {data?.description}
         </section>
