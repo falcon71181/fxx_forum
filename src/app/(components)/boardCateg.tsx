@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { boardList } from '../(lib)/boardList';
+import React, { useEffect, useState } from "react";
+import { boardList } from "../(lib)/boardList";
 import BoardCard from "./board";
 
 interface BoardData {
   _id: string;
+  leader: string;
   title: string;
   date: string;
 }
@@ -34,6 +35,7 @@ const BoardCategory = () => {
         <BoardCard
           _id={boardData._id}
           key={boardData._id}
+          leader={boardData.leader}
           title={boardData.title}
           date={new Date(boardData.date)}
         />
