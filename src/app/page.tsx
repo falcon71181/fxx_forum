@@ -186,7 +186,7 @@ export default function Home() {
         </nav>
 
         {/* Render content based on the selected category */}
-        <div className="border-2 border-red-500 w-full min-h-[80%] z-0">
+        <div className="w-full min-h-[80%] z-0">
           {/* {renderContent()} */}
           <div className="w-full">
             {boardLoading ? (
