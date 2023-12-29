@@ -19,7 +19,7 @@ import BoardCategory from "./(components)/boardCateg";
 import { boardList, BoardItem, BoardData } from "./(lib)/boardList";
 import BoardCard from "./(components)/board";
 import { isTokenValid } from "./(lib)/isTokenValid";
-import { Button, message } from 'antd';
+import { Button, message } from "antd";
 
 const identify = (str: string) => {
   if (str === "GENERAL") {
@@ -49,10 +49,11 @@ export default function Home() {
 
   const successSubmit = () => {
     messageApi.open({
-      type: 'loading',
-      content: 'Creating New Post...',
+      type: "loading",
+      content: "Creating New Post...",
       duration: 3,
     });
+  };
 
   const showDrawer = () => {
     setOpen(true);
