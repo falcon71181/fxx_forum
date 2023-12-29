@@ -19,7 +19,7 @@ import BoardCategory from "./(components)/boardCateg";
 import { boardList, BoardItem, BoardData } from "./(lib)/boardList";
 import BoardCard from "./(components)/board";
 import { isTokenValid } from "./(lib)/isTokenValid";
-import { Button, message } from "antd";
+import { message } from "antd";
 
 const identify = (str: string) => {
   if (str === "GENERAL") {
