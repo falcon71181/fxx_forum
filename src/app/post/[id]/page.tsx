@@ -3,8 +3,10 @@ import React from "react";
 import { PostData } from "@/app/(lib)/postData";
 import { useState, useEffect } from "react";
 import { BoardItem, BoardData } from "@/app/(lib)/boardList";
+import { FloatButton } from "antd";
 import { FaReply } from "react-icons/fa";
 import BoardLoading from "@/app/(components)/loading";
+import { isTokenValid } from "@/app/(lib)/isTokenValid";
 
 interface PostProps {
   params: {
@@ -13,6 +15,8 @@ interface PostProps {
 }
 
 const Post = ({ params }: PostProps) => {
+  const [isValidSession, setIsValidSession] = useState(false);
+
   const [data, setData] = useState<BoardData[]>([]);
   const [postLoading, setLoading] = useState(true);
 
@@ -37,6 +41,26 @@ const Post = ({ params }: PostProps) => {
 
     fetchData();
   }, [params.id]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const isTokenExist = localStorage.getItem("token");
+      if (isTokenExist == null) {
+        return;
+      }
+
+      try {
+        const domain =
+          typeof window !== "undefined" ? window.location.hostname : "";
+        const data = await isTokenValid();
+        setIsValidSession(data.valid);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   // @ts-ignore
   const postOwner = data?.leader?.split("@")[0];
   return (
@@ -68,6 +92,14 @@ const Post = ({ params }: PostProps) => {
           </div>
         )}
       </div>
+      {isValidSession && (
+        <FloatButton
+          shape="square"
+          type="primary"
+          style={{ position: "fixed", right: 50, bottom: 50 }}
+          icon={<FaReply />}
+        />
+      )}
     </main>
   );
 };

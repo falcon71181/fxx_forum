@@ -18,6 +18,7 @@ import {
 import BoardCategory from "./(components)/boardCateg";
 import { boardList, BoardItem, BoardData } from "./(lib)/boardList";
 import BoardCard from "./(components)/board";
+import { isTokenValid } from "./(lib)/isTokenValid";
 
 const identify = (str: string) => {
   if (str === "GENERAL") {
@@ -38,6 +39,8 @@ interface addBoardType {
   description: string;
 }
 export default function Home() {
+  const [isValidSession, setIsValidSession] = useState(false);
+
   const [open, setOpen] = useState(false);
   const [selectedPage, setSelectedPage] = useState("GENERAL");
   const [form] = Form.useForm();
@@ -77,6 +80,8 @@ export default function Home() {
 
       if (response.ok) {
         console.log("Board created successfully");
+        // Reload the page to render the new item
+        window.location.reload();
       } else {
         console.error("Error creating board:", response.statusText);
       }
@@ -121,6 +126,25 @@ export default function Home() {
       }
     };
 
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const isTokenExist = localStorage.getItem("token");
+      if (isTokenExist == null) {
+        return;
+      }
+
+      try {
+        const domain =
+          typeof window !== "undefined" ? window.location.hostname : "";
+        const data = await isTokenValid();
+        setIsValidSession(data.valid);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchData();
   }, []);
 
@@ -205,13 +229,15 @@ export default function Home() {
               ))
             )}
           </div>
-          <FloatButton
-            shape="square"
-            type="primary"
-            style={{ position: "fixed", right: 50, bottom: 50 }}
-            icon={<FaPlus />}
-            onClick={showDrawer}
-          />
+          {isValidSession && (
+            <FloatButton
+              shape="square"
+              type="primary"
+              style={{ position: "fixed", right: 50, bottom: 50 }}
+              icon={<FaPlus />}
+              onClick={showDrawer}
+            />
+          )}
         </div>
         <Drawer
           title="Create a new Board"
