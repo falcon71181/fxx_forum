@@ -198,6 +198,7 @@ const Post = ({ params }: PostProps) => {
           type="primary"
           style={{ position: "fixed", right: 50, bottom: 50 }}
           icon={<FaReply />}
+          onClick={showDrawer}
         />
       )}
       <Drawer
