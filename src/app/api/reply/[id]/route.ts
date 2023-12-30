@@ -89,15 +89,15 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(request: Request){
+export async function GET(request: Request) {
   let replyList: any = {};
   const postId = extractStringFromURL(request.url);
-  
+
   try {
     // Wait for DB to connect
     await connectDB();
 
-    const allReply = await Reply.find({postId});
+    const allReply = await Reply.find({ postId });
 
     // Append data to replList
     replyList = { ...replyList, ...allReply };
@@ -119,7 +119,7 @@ export async function GET(request: Request){
       },
     });
   } finally {
-    // Disconnect from th database after the operation is comlete or in case of an error
+    // Disconnect from the database after the operation is comlete or in case of an error
     disconnectDB();
   }
 }
