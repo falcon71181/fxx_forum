@@ -3,13 +3,23 @@ import React from "react";
 import { PostData } from "@/app/(lib)/postData";
 import { useState, useEffect } from "react";
 import { BoardItem, BoardData } from "@/app/(lib)/boardList";
-import { FloatButton } from "antd";
+import {
+  FloatButton,
+  Button,
+  Col,
+  Drawer,
+  Form,
+  Input,
+  Row,
+  Space,
+} from "antd";
 import { FaReply } from "react-icons/fa";
 import BoardLoading from "@/app/(components)/loading";
 import { isTokenValid } from "@/app/(lib)/isTokenValid";
 import { replyList } from "@/app/(lib)/replyList";
 import ReplyCard from "@/app/(components)/Reply";
 import { ReplyType } from "@/app/(models)/Reply";
+import { message } from "antd";
 
 interface PostProps {
   params: {
@@ -28,7 +38,48 @@ interface ReplyDataI {
   postId: string;
 }
 
+interface addReplyType {
+  reply: string;
+}
+
 const Post = ({ params }: PostProps) => {
+  const [open, setOpen] = useState(false);
+  const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const successSubmit = () => {
+    messageApi.open({
+      type: "loading",
+      content: "Creating New Post...",
+      duration: 5,
+    });
+  };
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = async (values: addReplyType) => {
+    successSubmit();
+    // Create a FormData Object
+    const formData = new FormData();
+    formData.append("reply", values.reply);
+
+    const token = localStorage.getItem("token") || null;
+    // Perform the POST request to your  API with FormData
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/reply/${params.id}`,
+      );
+    } catch (error: any) {
+      console.error("Error:", error.message);
+    }
+  };
+
   const [isValidSession, setIsValidSession] = useState(false);
 
   const [data, setData] = useState<BoardData[]>([]);
@@ -103,6 +154,7 @@ const Post = ({ params }: PostProps) => {
   const postOwner = data?.leader?.split("@")[0];
   return (
     <main className="pt-20 flex flex-col min-h-screen w-full">
+      {contextHolder}
       <div className="w-full h-full flex justify-center items-center rounded-t-xl">
         {postLoading ? (
           <section className="w-full h-full flex justify-center items-center">
@@ -130,7 +182,7 @@ const Post = ({ params }: PostProps) => {
           </div>
         )}
       </div>
-      {replyData && (
+      {replyData &&
         replyData.replies.map((reply: ReplyType) => (
           <ReplyCard
             key={reply.date.toString()}
@@ -138,8 +190,7 @@ const Post = ({ params }: PostProps) => {
             reply={reply.reply}
             date={reply.date}
           />
-        ))
-      )}
+        ))}
 
       {isValidSession && (
         <FloatButton
@@ -149,6 +200,61 @@ const Post = ({ params }: PostProps) => {
           icon={<FaReply />}
         />
       )}
+      <Drawer
+        title="Write a Reply to Post..."
+        height={300}
+        onClose={onClose}
+        placement="bottom"
+        open={open}
+        extra={
+          <Space>
+            <Button onClick={onClose}>Cancel</Button>
+            {/* Modify the Submit button to trigger the form submission */}
+            <Button
+              onClick={() => {
+                // Call the antd form validate function
+                form
+                  .validateFields()
+                  .then((values) => {
+                    form.resetFields();
+                    handleSubmit(values);
+                    onClose();
+                  })
+                  .catch((info) => {
+                    console.log("Validate Failed:", info);
+                  });
+              }}
+              type="link"
+              className="text-base border-[1px] border-blue-500 flex justify-center items-center"
+            >
+              Submit
+            </Button>
+          </Space>
+        }
+      >
+        {/* @ts-ignore */}
+        <Form layout="vertical" onFinish={handleSubmit} form={form}>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Form.Item
+                name="reply"
+                label="Reply"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your Reply",
+                  },
+                ]}
+              >
+                <Input.TextArea
+                  rows={7}
+                  placeholder="Please enter your Reply"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </Drawer>
     </main>
   );
 };
