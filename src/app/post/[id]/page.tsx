@@ -66,15 +66,31 @@ const Post = ({ params }: PostProps) => {
   const handleSubmit = async (values: addReplyType) => {
     successSubmit();
     // Create a FormData Object
-    const formData = new FormData();
-    formData.append("reply", values.reply);
+    const replyFormData = new FormData();
+    replyFormData.append("reply", values.reply);
 
     const token = localStorage.getItem("token") || null;
     // Perform the POST request to your  API with FormData
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_HOST}/api/reply/${params.id}`,
+        {
+          method: "POST",
+          body: replyFormData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
+
+      if (response.ok) {
+        console.log("Reply created successfully");
+        // Reload the page to render the new reply
+        // TODO ; useRel to include new reply without reloading the page
+        window.location.reload();
+      } else {
+        console.log("Error creating reply:", response.statusText);
+      }
     } catch (error: any) {
       console.error("Error:", error.message);
     }
