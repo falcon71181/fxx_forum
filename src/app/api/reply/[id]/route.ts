@@ -89,6 +89,41 @@ export async function POST(request: Request) {
   }
 }
 
+export async function GET(request: Request){
+  let replyList: any = {};
+  const postId = extractStringFromURL(request.url);
+  
+  try {
+    // Wait for DB to connect
+    await connectDB();
+
+    const allReply = await Reply.find({postId});
+
+    // Append data to replList
+    replyList = { ...replyList, ...allReply };
+    const responseBody = JSON.stringify(replyList);
+
+    return new Response(responseBody, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    return new Response("Internal Server Error", {
+      status: 500,
+      headers: {
+        "Content-Type": "text.plain",
+      },
+    });
+  } finally {
+    // Disconnect from th database after the operation is comlete or in case of an error
+    disconnectDB();
+  }
+}
+
 function extractStringFromURL(url: string) {
   const startIndex = url.indexOf('/api/reply/') + '/api/reply/'.length;
   const endIndex = url.length;
