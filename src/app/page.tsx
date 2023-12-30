@@ -51,7 +51,7 @@ export default function Home() {
     messageApi.open({
       type: "loading",
       content: "Creating New Post...",
-      duration: 3,
+      duration: 5,
     });
   };
 
