@@ -12,7 +12,6 @@ export const replyList = async (postId: string) => {
     }
 
     const result = res.json();
-    console.log(result);
     return result;
   } catch (error: any) {
     console.error("Error fetching reply list:", error.message);
