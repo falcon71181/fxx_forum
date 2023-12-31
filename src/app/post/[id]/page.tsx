@@ -169,7 +169,7 @@ const Post = ({ params }: PostProps) => {
   // @ts-ignore
   const postOwner = data?.leader?.split("@")[0];
   return (
-    <main className="pt-20 flex flex-col min-h-screen w-full">
+    <main className="pt-15 tablet:pt-20 flex flex-col min-h-screen w-full">
       {contextHolder}
       <div className="w-full h-full flex justify-center items-center rounded-t-xl">
         {postLoading ? (
@@ -177,7 +177,7 @@ const Post = ({ params }: PostProps) => {
             <BoardLoading />
           </section>
         ) : (
-          <div className="w-4/5 min-h-50 shadow-2xl shadow-cyan-300 rounded-t-xl border-2 border-grey-800">
+          <div className="w-full tablet:w-4/5 min-h-50 shadow-2xl shadow-cyan-300 rounded-t-xl border-2 border-grey-800">
             <div className="w-full min-h-24 bg-gray-800 rounded-t-xl flex justify-between items-center p-5">
               <div className="flex flex-col gap-2">
                 <div className="text-base tablet:text-xl navHide:text-3xl font-heading font-extrabold">

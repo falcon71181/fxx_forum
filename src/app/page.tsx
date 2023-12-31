@@ -161,7 +161,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="pt-20 flex min-h-screen min-w-screen justify-center text-6xl text-slate-300">
+    <main className="pt-15 tablet:pt-20 flex min-h-screen min-w-screen justify-center text-6xl text-slate-300">
       {contextHolder}
       <div className="w-full tablet:w-4/5 min-h-screen shadow-2xl shadow-cyan-300 rounded-t-xl">
         <nav className="w-full h-10 bg-gray-800 rounded-t-xl">
