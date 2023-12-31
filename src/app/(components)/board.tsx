@@ -17,7 +17,7 @@ const BoardCard: React.FC<BoardProps> = (props) => {
           {props.title}
         </div>
         <div className="flex">
-          <div className="text-lg pr-3">@{postOwner}</div>
+          <div className="text-lg pr-3">@<span className="text-lg text-green-500 text-shadow-green-600 bg-[url('https://static.cracked.io/images/bg1.gif')]">{postOwner}</span></div>
           <div className="absolute right-4 bottom-2 text-slate-300 text-[10px]">
             {props.date.toString()}
           </div>

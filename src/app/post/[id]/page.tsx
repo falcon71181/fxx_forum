@@ -184,7 +184,7 @@ const Post = ({ params }: PostProps) => {
                   {/* @ts-ignore */}
                   {data?.title}
                 </div>
-                <div className="text-lg">By : @{postOwner}</div>
+                <div className="text-lg">By : @<span className="text-lg text-green-500 text-shadow-green-600 bg-[url('https://static.cracked.io/images/bg1.gif')]">{postOwner}</span></div>
               </div>
               <div className="text-sm">
                 {/* @ts-ignore */}
