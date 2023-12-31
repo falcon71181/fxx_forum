@@ -31,11 +31,11 @@ const items = [
     key: "2",
   },
   {
-    label: <a href="/telegram">Telegram</a>,
+    label: <a href="https://t.me/s33s4w" target="_blank">Telegram</a>,
     key: "3",
   },
   {
-    label: <a href="/discord">Discord</a>,
+    label: <a href="https://discord.gg/rEnXXCvDYv" target="_blank">Discord</a>,
     key: "4",
   },
 ];
@@ -84,8 +84,8 @@ const NavBar = () => {
           <Link
             href="/"
             className={`${pathname == "/"
-                ? "text-white bg-slate-900"
-                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+              ? "text-white bg-slate-900"
+              : "text-slate-300 hover:bg-slate-900 hover:text-white"
               } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <FaHome
@@ -101,8 +101,8 @@ const NavBar = () => {
           <Link
             href="/upgrade"
             className={`${pathname == "/upgrade"
-                ? "text-white bg-slate-900"
-                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+              ? "text-white bg-slate-900"
+              : "text-slate-300 hover:bg-slate-900 hover:text-white"
               } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <GiJusticeStar
@@ -118,8 +118,8 @@ const NavBar = () => {
           <Link
             href="/help"
             className={`${pathname == "/help"
-                ? "text-white bg-slate-900"
-                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+              ? "text-white bg-slate-900"
+              : "text-slate-300 hover:bg-slate-900 hover:text-white"
               } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <FaFlag
@@ -133,10 +133,11 @@ const NavBar = () => {
         </li>
         <li>
           <Link
-            href="/telegram"
+            href="https://t.me/s33s4w"
+            target="_blank"
             className={`${pathname == "/telegram"
-                ? "text-white bg-slate-900"
-                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+              ? "text-white bg-slate-900"
+              : "text-slate-300 hover:bg-slate-900 hover:text-white"
               } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <FaTelegramPlane
@@ -150,10 +151,11 @@ const NavBar = () => {
         </li>
         <li>
           <Link
-            href="/discord"
+            href="https://discord.gg/rEnXXCvDYv"
+            target="_blank"
             className={`${pathname == "/discord"
-                ? "text-white bg-slate-900"
-                : "text-slate-300 hover:bg-slate-900 hover:text-white"
+              ? "text-white bg-slate-900"
+              : "text-slate-300 hover:bg-slate-900 hover:text-white"
               } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <FaDiscord
