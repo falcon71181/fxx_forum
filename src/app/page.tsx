@@ -127,7 +127,7 @@ export default function Home() {
 
         const result = await boardList();
         // @ts-ignore
-        const dataArray = Object.values(result);
+        const dataArray = Object.values(result).reverse();
         // @ts-ignore
         setData(dataArray);
       } catch (error: any) {
