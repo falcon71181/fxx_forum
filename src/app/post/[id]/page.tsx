@@ -169,7 +169,7 @@ const Post = ({ params }: PostProps) => {
   // @ts-ignore
   const postOwner = data?.leader?.split("@")[0];
   return (
-    <main className="pt-15 tablet:pt-20 flex flex-col min-h-screen w-full">
+    <main className="pt-20 flex flex-col min-h-screen w-full">
       {contextHolder}
       <div className="w-full h-full flex justify-center items-center rounded-t-xl">
         {postLoading ? (
