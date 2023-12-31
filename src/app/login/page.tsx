@@ -24,8 +24,8 @@ const Register = () => {
 
         localStorage.setItem("token", result.token);
 
-        // redirecting to profile page after Login
-        window.location.replace("/profile");
+        // redirecting to Home page after Login
+        window.location.replace("/");
       } else {
         // Handle Login failure
         console.error("Registration failed");

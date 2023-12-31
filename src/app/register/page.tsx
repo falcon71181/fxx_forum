@@ -31,8 +31,8 @@ const Register = () => {
 
         localStorage.setItem("token", result.token);
 
-        // redirecting to profile page after Register
-        window.location.replace("/profile");
+        // redirecting to Home page after Register
+        window.location.replace("/");
       } else {
         // Handle registration failure
         console.error("Registration failed");
