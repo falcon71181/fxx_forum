@@ -52,7 +52,6 @@ const NavBar = () => {
       }
 
       try {
-        console.log("working");
         const domain =
           typeof window !== "undefined" ? window.location.hostname : "";
         const data = await isTokenValid();
@@ -84,11 +83,10 @@ const NavBar = () => {
         <li>
           <Link
             href="/"
-            className={`${
-              pathname == "/"
+            className={`${pathname == "/"
                 ? "text-white bg-slate-900"
                 : "text-slate-300 hover:bg-slate-900 hover:text-white"
-            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+              } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <FaHome
               style={{
@@ -102,11 +100,10 @@ const NavBar = () => {
         <li>
           <Link
             href="/upgrade"
-            className={`${
-              pathname == "/upgrade"
+            className={`${pathname == "/upgrade"
                 ? "text-white bg-slate-900"
                 : "text-slate-300 hover:bg-slate-900 hover:text-white"
-            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+              } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <GiJusticeStar
               style={{
@@ -120,11 +117,10 @@ const NavBar = () => {
         <li>
           <Link
             href="/help"
-            className={`${
-              pathname == "/help"
+            className={`${pathname == "/help"
                 ? "text-white bg-slate-900"
                 : "text-slate-300 hover:bg-slate-900 hover:text-white"
-            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+              } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <FaFlag
               style={{
@@ -138,11 +134,10 @@ const NavBar = () => {
         <li>
           <Link
             href="/telegram"
-            className={`${
-              pathname == "/telegram"
+            className={`${pathname == "/telegram"
                 ? "text-white bg-slate-900"
                 : "text-slate-300 hover:bg-slate-900 hover:text-white"
-            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+              } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <FaTelegramPlane
               style={{
@@ -156,11 +151,10 @@ const NavBar = () => {
         <li>
           <Link
             href="/discord"
-            className={`${
-              pathname == "/discord"
+            className={`${pathname == "/discord"
                 ? "text-white bg-slate-900"
                 : "text-slate-300 hover:bg-slate-900 hover:text-white"
-            } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
+              } h-full flex items-center justify-center gap-2 px-1 laptop:px-3 text-sm`}
           >
             <FaDiscord
               style={{

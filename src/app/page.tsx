@@ -163,16 +163,15 @@ export default function Home() {
   return (
     <main className="pt-20 flex min-h-screen min-w-screen justify-center text-6xl text-slate-300">
       {contextHolder}
-      <div className="w-4/5 min-h-screen shadow-2xl shadow-cyan-300">
+      <div className="w-full tablet:w-4/5 min-h-screen shadow-2xl shadow-cyan-300 rounded-t-xl">
         <nav className="w-full h-10 bg-gray-800 rounded-t-xl">
           <ul className="h-full flex justify-evenly">
             <li>
               <button
                 type="button"
                 onClick={() => handlePageChange("GENERAL")}
-                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${
-                  selectedPage === "GENERAL" ? "bg-slate-900" : ""
-                }`}
+                className={`text-slate-300 hover:bg-slate-900 hover:text-white cursor-pointer h-full flex items-center justify-center font-heading px-3 text-xl gap-3 ${selectedPage === "GENERAL" ? "bg-slate-900" : ""
+                  }`}
               >
                 <span>
                   <FiSlack />
