@@ -178,20 +178,20 @@ const Post = ({ params }: PostProps) => {
           </section>
         ) : (
           <div className="w-4/5 min-h-50 shadow-2xl shadow-cyan-300 rounded-t-xl border-2 border-grey-800">
-            <div className="w-full h-24 bg-gray-800 rounded-t-xl flex justify-between items-center p-5">
+            <div className="w-full min-h-24 bg-gray-800 rounded-t-xl flex justify-between items-center p-5">
               <div className="flex flex-col gap-2">
-                <div className="text-3xl font-heading font-extrabold">
+                <div className="text-base tablet:text-xl navHide:text-3xl font-heading font-extrabold">
                   {/* @ts-ignore */}
                   {data?.title}
                 </div>
-                <div className="text-lg">By : @<span className="text-lg text-green-500 text-shadow-green-600 bg-[url('https://static.cracked.io/images/bg1.gif')]">{postOwner}</span></div>
+                <div className="text-sm tablet:text-base navHide:text-lg">By : @<span className="text-sm tablet:text-base navHide:text-lg text-[#ff99b1] text-shadow-red-400 bg-[url('https://static.cracked.io/images/bg1.gif')]">{postOwner}</span></div>
               </div>
-              <div className="text-sm">
+              <div className="text-[8px] tablet:text-[10px] navHide:text-sm">
                 {/* @ts-ignore */}
                 {data?.date?.toString()}
               </div>
             </div>
-            <section className="w-full min-h-20 p-3 flex text-base text-slate-300 whitespace-pre-wrap hyphens-auto">
+            <section className="w-full min-h-20 p-3 flex text-sm tablet:text-base text-slate-300 whitespace-pre-wrap hyphens-auto">
               {/* @ts-ignore */}
               {data?.description}
             </section>
@@ -204,7 +204,7 @@ const Post = ({ params }: PostProps) => {
             key={reply.date.toString()}
             leader={reply.leader}
             reply={reply.reply}
-            date={reply.date}
+            date={new Date(reply.date)}
           />
         ))}
 

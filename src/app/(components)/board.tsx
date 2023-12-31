@@ -13,12 +13,12 @@ const BoardCard: React.FC<BoardProps> = (props) => {
   return (
     <Link href={`/post/${props._id}`}>
       <section className="flex relative items-center justify-between border-2 border-blue-500 min-w-screen min-h-[80px] m-4 p-2 rounded-lg">
-        <div className="text-slate-300 font-extrabold text-3xl">
+        <div className="text-slate-300 font-extrabold text-lg tablet:text-xl navHide:text-3xl">
           {props.title}
         </div>
         <div className="flex">
-          <div className="text-lg pr-3">@<span className="text-lg text-green-500 text-shadow-green-600 bg-[url('https://static.cracked.io/images/bg1.gif')]">{postOwner}</span></div>
-          <div className="absolute right-4 bottom-2 text-slate-300 text-[10px]">
+          <div className="text-sm tablet:base navHide:text-lg pr-3">@<span className="text-sm tablet:text-base navHide:text-lg text-green-500 text-shadow-green-600 bg-[url('https://static.cracked.io/images/bg1.gif')]">{postOwner}</span></div>
+          <div className="absolute right-4 bottom-2 text-slate-300 text-[6px] tablet:text-[8px] navHide:text-[10px]">
             {props.date.toString()}
           </div>
         </div>
