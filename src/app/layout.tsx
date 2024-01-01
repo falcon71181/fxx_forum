@@ -1,5 +1,6 @@
 import "./globals.css";
 import NavBar from "./(components)/NavBar";
+import Footer from "./(components)/footer";
 import { ReactNode } from 'react';
 
 export const metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="bg-gray-700">
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
