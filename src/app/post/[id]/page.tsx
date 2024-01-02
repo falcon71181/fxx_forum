@@ -55,6 +55,14 @@ const Post = ({ params }: PostProps) => {
     });
   };
 
+  const failSubmit = () => {
+    messageApi.open({
+      type: "error",
+      content: "Failed to create Post...",
+      duration: 10,
+    })
+  }
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -89,6 +97,7 @@ const Post = ({ params }: PostProps) => {
         // TODO ; useRel to include new reply without reloading the page
         window.location.reload();
       } else {
+        failSubmit();
         console.log("Error creating reply:", response.statusText);
       }
     } catch (error: any) {

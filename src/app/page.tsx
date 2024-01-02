@@ -47,13 +47,29 @@ export default function Home() {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const successSubmit = () => {
+  const progressSubmit = () => {
     messageApi.open({
       type: "loading",
       content: "Creating New Post...",
       duration: 5,
     });
   };
+
+  const failSubmit = () => {
+    messageApi.open({
+      type: "error",
+      content: "Creating Post Failed...",
+      duration: 10,
+    });
+  }
+
+  const successSubmit = () => {
+    messageApi.open({
+      type: "success",
+      content: "Post Successfully Created",
+      duration: 3,
+    });
+  }
 
   const showDrawer = () => {
     setOpen(true);
@@ -70,7 +86,7 @@ export default function Home() {
 
   // Function to handle form submission
   const handleSubmit = async (values: addBoardType, identifier: string) => {
-    successSubmit();
+    progressSubmit();
     // Create a FormData object
     const typeIdentity = identify(identifier).toString();
     const formData = new FormData();
@@ -90,14 +106,17 @@ export default function Home() {
       });
 
       if (response.ok) {
+        successSubmit();
         console.log("Board created successfully");
         // Reload the page to render the new item
         // TODO ; useRel to include new item without reloading the page
         window.location.reload();
       } else {
+        failSubmit();
         console.error("Error creating board:", response.statusText);
       }
     } catch (error: any) {
+      failSubmit();
       console.error("Error:", error.message);
     }
   };

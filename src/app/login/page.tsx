@@ -1,11 +1,38 @@
 "use client";
 import React, { useState, SyntheticEvent } from "react";
+import { message } from "antd";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const progressSubmit = () => {
+    messageApi.open({
+      type: "loading",
+      content: "Login in process...",
+      duration: 5,
+    })
+  }
+
+  const successSubmit = () => {
+    messageApi.open({
+      type: "success",
+      content: "Login successfull",
+      duration: 3,
+    });
+  }
+
+  const failSubmit = () => {
+    messageApi.open({
+      type: "error",
+      content: "Login Failed...",
+      duration: 10,
+    })
+  }
 
   const handleSubmit = async (e: SyntheticEvent) => {
+    progressSubmit();
     e.preventDefault();
 
     try {
@@ -20,6 +47,7 @@ const Register = () => {
 
       // Check if the request was successful
       if (response.ok) {
+        successSubmit();
         const result = await response.json();
 
         localStorage.setItem("token", result.token);
@@ -27,17 +55,20 @@ const Register = () => {
         // redirecting to Home page after Login
         window.location.replace("/");
       } else {
+        failSubmit();
         // Handle Login failure
-        console.error("Registration failed");
+        console.error("Login failed");
       }
     } catch (error) {
+      failSubmit();
       // Handle network or other errors
-      console.error("Error during registration:", error);
+      console.error("Error during login:", error);
     }
   };
 
   return (
     <main className="min-h-screen flex items-center justify-center">
+      {contextHolder}
       <div className="w-80 rounded-2xl bg-slate-900">
         <div className="flex flex-col gap-2 p-8">
           <p className="text-center text-3xl text-gray-300 mb-4">Login</p>
