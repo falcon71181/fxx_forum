@@ -47,13 +47,21 @@ const Post = ({ params }: PostProps) => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const successSubmit = () => {
+  const progressSubmit = () => {
     messageApi.open({
       type: "loading",
       content: "Creating New Post...",
       duration: 5,
     });
   };
+
+  const successSubmit = () => {
+    messageApi.open({
+      type: "success",
+      content: "Reply Successfull...",
+      duration: 3,
+    });
+  }
 
   const failSubmit = () => {
     messageApi.open({
@@ -72,7 +80,7 @@ const Post = ({ params }: PostProps) => {
   };
 
   const handleSubmit = async (values: addReplyType) => {
-    successSubmit();
+    progressSubmit();
     // Create a FormData Object
     const replyFormData = new FormData();
     replyFormData.append("reply", values.reply);
@@ -92,6 +100,7 @@ const Post = ({ params }: PostProps) => {
       );
 
       if (response.ok) {
+        successSubmit();
         console.log("Reply created successfully");
         // Reload the page to render the new reply
         // TODO ; useRel to include new reply without reloading the page
@@ -101,6 +110,7 @@ const Post = ({ params }: PostProps) => {
         console.log("Error creating reply:", response.statusText);
       }
     } catch (error: any) {
+      failSubmit();
       console.error("Error:", error.message);
     }
   };
