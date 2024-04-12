@@ -217,7 +217,7 @@ const Post = ({ params }: PostProps) => {
           </div>
         )}
       </div>
-      {replyData &&
+      {replyData && data &&
         replyData.replies.map((reply: ReplyType) => (
           <ReplyCard
             key={reply.date.toString()}
